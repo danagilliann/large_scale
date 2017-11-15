@@ -6,7 +6,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=255)
-    school = models.ForeignKey(School, on_delete=models.SET_NULL) # A user can have no school, but then they shouldn't be allowed to answer questions
+    school = models.ForeignKey('School', on_delete=models.SET_NULL) # A user can have no school, but then they shouldn't be allowed to answer questions
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -22,6 +22,7 @@ class Question(models.Model):
     text = models.TextField(max_length=500)
     school = models.ForeignKey(School, on_delete=models.CASCADE) # no school -> no question
     user = models.ForeignKey(User, on_delete=models.CASCADE) # no user -> no question
+    duplicate_of = models.ForeignKey('self', on_delete=models.SET_NULL)
 
     def get_answers_by_upvotes(self):
         return self.answer_set.order_by('-num_upvotes')
