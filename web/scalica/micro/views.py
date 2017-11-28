@@ -10,9 +10,12 @@ from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
 
 # Quora-clone here
 def universities(request):
+  # get all universities from DB (names and id)
   return render(request, 'micro/universities.html')
 
 def university(request, university_id):
+  # get uni with this specific id
+  # get all questions from this university
   return render(request, 'micro/university.html')
 
 def question(request, question_id):
