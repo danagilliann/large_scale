@@ -8,6 +8,23 @@ from django.utils import timezone
 from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
 
 
+# Quora-clone here
+def universities(request):
+  return render(request, 'micro/universities.html')
+
+def university(request, university_id):
+  return render(request, 'micro/university.html')
+
+def question(request, question_id):
+  return render(request, 'micro/question.html')
+
+def answer(request, answer_id):
+  return render(request, 'micro/answer.html')
+
+def user(request, user_id):
+  return render(request, 'micro/user.html')
+
+
 # Anonymous views
 #################
 def index(request):

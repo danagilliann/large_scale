@@ -10,5 +10,10 @@ urlpatterns = [
     url(r'^post/$', views.post, name='post'),
     url(r'^follow/$', views.follow, name='follow'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^universities/$', views.universities, name='universities'),
+    url(r'^university/(?P<university_id>[0-9]+)/$', views.university, name='university'),
+    url(r'^question/(?P<question_id>[0-9]+)/$', views.question, name='question'),
+    url(r'^answer/(?P<answer_id>[0-9]+)/$', views.answer, name='answer'),
+    url(r'^user/(?P<user_id>[0-9]+)/$', views.user, name='user'),
     url('^', include('django.contrib.auth.urls'))
 ]
