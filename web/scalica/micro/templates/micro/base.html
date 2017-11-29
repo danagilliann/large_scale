@@ -5,17 +5,16 @@
   <link rel="stylesheet" type="text/css" href="{% static 'micro/style.css' %}" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <title>Scalica</title>
-</head> 
+</head>
 <body>
   <nav class="navbar navbar-light bg-faded">
     <h1 class="navbar-brand mb-0">
       {% if user.is_authenticated %}
-        {{ user.username }}
+        <a href="/micro/user/123">{{ user.username }}</a>
         <a href="{% url 'micro:logout' %}">Log Out</a>
           {% else %}
         <a href="{% url 'micro:login' %}">Log In</a>
       {% endif %}
-      {% block header %}{% endblock header %}
     </h1>
   </nav>
 
