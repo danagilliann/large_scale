@@ -27,6 +27,18 @@ def answer(request, answer_id):
 def user(request, user_id):
   return render(request, 'micro/user.html')
 
+@login_required
+def post_question(request):
+  # create a new question and save to db
+  return render(request, 'micro/question.html')
+
+@login_required
+def post_answer(request):
+  # create a new answer and save to db
+  # redirect to question page
+  # we should be able to see the new answer
+  return render(request, 'micro/question.html')
+
 
 # Anonymous views
 #################
