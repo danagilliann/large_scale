@@ -28,6 +28,11 @@ def user(request, user_id):
   return render(request, 'micro/user.html')
 
 @login_required
+def follow_question(request):
+  # follow this question
+  return render(request, 'micro/question.html')
+
+@login_required
 def post_question(request):
   # create a new question and save to db
   return render(request, 'micro/question.html')
