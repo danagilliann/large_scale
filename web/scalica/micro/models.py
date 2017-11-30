@@ -94,6 +94,11 @@ class AnswerForm(ModelForm):
 	    'text': TextInput(attrs={'id' : 'input_answer'}),
 	}
 
+class SchoolForm(ModelForm):
+    class Meta():
+	model = School
+	fields = ['name']
+
 """
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
