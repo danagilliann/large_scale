@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.db import models
+from django.forms import ModelForm, TextInput
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
@@ -61,6 +63,36 @@ def decrement_num_upvotes(sender, instance, created, **kwargs):
 class School(models.Model):
     name = models.CharField(max_length=255)
 
+class MyUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        help_texts = {
+            'username' : '',
+        }
+
+"""
+MyUserCreationForm and ProfileForm can be used in the same view for user creation
+Reference: https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
+"""
+class ProfileForm(ModelForm):
+    class Meta():
+	model = Profile
+	fields = ['first_name', 'last_name', 'email', 'school']
+
+class QuestionForm(ModelForm):
+    class Meta():
+        model = Question
+	fields = ['text']
+	widgets = {
+	    'text': TextInput(attrs={'id' : 'input_question'}),
+	}
+
+class AnswerForm(ModelForm):
+    class Meta():
+	model = Answer
+	fields = ['text']
+	widgets = {
+	    'text': TextInput(attrs={'id' : 'input_answer'}),
+	}
 
 """
 from django.contrib.auth.forms import UserCreationForm
