@@ -8,7 +8,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=255)
-    school = models.ForeignKey('School', on_delete=models.SET_NULL) # A user can have no school, but then they shouldn't be allowed to answer questions
+    university = models.ForeignKey('University', on_delete=models.SET_NULL) # A user can have no university, but then they shouldn't be allowed to answer questions
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -22,7 +22,7 @@ def save_user_profile(sender, instance, **kwargs):
 class Question(models.Model):
     timestamp = models.DateField(auto_now_add=True, editable=False)
     text = models.TextField(max_length=500)
-    school = models.ForeignKey(School, on_delete=models.CASCADE) # no school -> no question
+    university = models.ForeignKey(University, on_delete=models.CASCADE) # no university -> no question
     user = models.ForeignKey(User, on_delete=models.CASCADE) # no user -> no question
     duplicate_of = models.ForeignKey('self', on_delete=models.SET_NULL)
 
@@ -60,7 +60,7 @@ def decrement_num_upvotes(sender, instance, created, **kwargs):
     """
     instance.answer.num_upvotes -= 1
 
-class School(models.Model):
+class University(models.Model):
     name = models.CharField(max_length=255)
 
 class MyUserCreationForm(UserCreationForm):
@@ -76,7 +76,7 @@ Reference: https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-exte
 class ProfileForm(ModelForm):
     class Meta():
 	model = Profile
-	fields = ['first_name', 'last_name', 'email', 'school']
+	fields = ['first_name', 'last_name', 'email', 'university']
 
 class QuestionForm(ModelForm):
     class Meta():
@@ -94,9 +94,9 @@ class AnswerForm(ModelForm):
 	    'text': TextInput(attrs={'id' : 'input_answer'}),
 	}
 
-class SchoolForm(ModelForm):
+class UniversityForm(ModelForm):
     class Meta():
-	model = School
+	model = University
 	fields = ['name']
 
 """
