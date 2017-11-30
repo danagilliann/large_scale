@@ -75,29 +75,29 @@ Reference: https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-exte
 """
 class ProfileForm(ModelForm):
     class Meta():
-	model = Profile
-	fields = ['first_name', 'last_name', 'email', 'university']
+        model = Profile
+        fields = ['first_name', 'last_name', 'email', 'university']
 
 class QuestionForm(ModelForm):
     class Meta():
         model = Question
-	fields = ['text']
-	widgets = {
-	    'text': TextInput(attrs={'id' : 'input_question'}),
-	}
+        fields = ['text']
+        widgets = {
+            'text': TextInput(attrs={'id' : 'input_question'}),
+        }
 
 class AnswerForm(ModelForm):
     class Meta():
-	model = Answer
-	fields = ['text']
-	widgets = {
-	    'text': TextInput(attrs={'id' : 'input_answer'}),
-	}
+        model = Answer
+        fields = ['text']
+        widgets = {
+           'text': TextInput(attrs={'id' : 'input_answer'}),
+         }
 
 class UniversityForm(ModelForm):
     class Meta():
-	model = University
-	fields = ['name']
+        model = University
+        fields = ['name']
 
 """
 from django.contrib.auth.forms import UserCreationForm
