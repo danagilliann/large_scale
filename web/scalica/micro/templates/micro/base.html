@@ -3,27 +3,26 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'micro/style.css' %}" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <title>Scalica</title>
-</head> 
+</head>
 <body>
-  <div id="header">
-    {% if user.is_authenticated %}
-      {{ user.username }}
-      <a href="{% url 'micro:logout' %}">Log Out</a>
-    {% else %}
-      <a href="{% url 'micro:login' %}">Log In</a>
-    {% endif %}
-    {% block header %}{% endblock header %}
-  </div>
+  <nav class="navbar navbar-light bg-faded">
+    <h1 class="navbar-brand mb-0">
+      {% if user.is_authenticated %}
+        <a href="/micro/user/123">{{ user.username }}</a>
+        <a href="{% url 'micro:logout' %}">Log Out</a>
+          {% else %}
+        <a href="{% url 'micro:login' %}">Log In</a>
+      {% endif %}
+    </h1>
+  </nav>
+
   <div id="sidebar">
     {% block sidebar %}{% endblock sidebar %}
   </div>
   <div id="content">
     {% block content %}{% endblock content %}
-  </div>
-  <div id="footer">
-    <p>Copyright Scalica</p>
-    {% block footer %}{% endblock footer %}
   </div>
 </body>
 </html>

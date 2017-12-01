@@ -10,9 +10,12 @@ from .models import Following, Post, FollowingForm, PostForm, MyUserCreationForm
 
 # Quora-clone here
 def universities(request):
+  # get all universities from DB (names and id)
   return render(request, 'micro/universities.html')
 
 def university(request, university_id):
+  # get uni with this specific id
+  # get all questions from this university
   return render(request, 'micro/university.html')
 
 def question(request, question_id):
@@ -23,6 +26,23 @@ def answer(request, answer_id):
 
 def user(request, user_id):
   return render(request, 'micro/user.html')
+
+@login_required
+def follow_question(request):
+  # follow this question
+  return render(request, 'micro/question.html')
+
+@login_required
+def post_question(request):
+  # create a new question and save to db
+  return render(request, 'micro/question.html')
+
+@login_required
+def post_answer(request):
+  # create a new answer and save to db
+  # redirect to question page
+  # we should be able to see the new answer
+  return render(request, 'micro/question.html')
 
 
 # Anonymous views
@@ -98,7 +118,7 @@ def home(request):
     'my_post' : my_post,
     'post_form' : PostForm
   }
-  return render(request, 'micro/home.html', context)
+  return render(request, 'micro/universities.html', context)
 
 # Allows to post something and shows my most recent posts.
 @login_required
