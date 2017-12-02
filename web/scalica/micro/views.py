@@ -33,6 +33,7 @@ def register(request):
   else:
     form = MyUserCreationForm
   return render(request, 'micro/register.html', {'form' : form})
+
 def universities(request):
   # get all universities from DB (names and id)
   university_list = University.objects.all();
