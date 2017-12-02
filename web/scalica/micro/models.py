@@ -1,16 +1,20 @@
 from django.conf import settings
 from django.db import models
 from django.forms import ModelForm, TextInput
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+
+class University(models.Model):
+    name = models.CharField(max_length=255)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=255)
-    university = models.ForeignKey('University', on_delete=models.SET_NULL) # A user can have no university, but then they shouldn't be allowed to answer questions
+    university = models.ForeignKey('University', null=True, on_delete=models.SET_NULL) # A user can have no university, but then they shouldn't be allowed to answer questions
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -26,7 +30,7 @@ class Question(models.Model):
     text = models.TextField(max_length=500)
     university = models.ForeignKey(University, on_delete=models.CASCADE) # no university -> no question
     user = models.ForeignKey(User, on_delete=models.CASCADE) # no user -> no question
-    duplicate_of = models.ForeignKey('self', on_delete=models.SET_NULL)
+    duplicate_of = models.ForeignKey('self', null=True, on_delete=models.SET_NULL)
 
     def get_answers_by_upvotes(self):
         return self.answer_set.order_by('-num_upvotes')
@@ -61,9 +65,6 @@ def decrement_num_upvotes(sender, instance, created, **kwargs):
     subtract upvote from answer's upvote count if upvote is deleted
     """
     instance.answer.num_upvotes -= 1
-
-class University(models.Model):
-    name = models.CharField(max_length=255)
 
 class MyUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
