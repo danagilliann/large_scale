@@ -5,18 +5,51 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-from .models import MyUserCreationForm
+from .models import MyUserCreationForm, Question, QuestionForm, University, UniversityForm
+
 
 
 # Quora-clone here
 def universities(request):
-  # get all universities from DB (names and id)
-  return render(request, 'micro/universities.html')
+  # get create university form
+  if request.method == 'POST':
+    form = UniversityForm(request.POST)
+    form.save(commit=True)
+  else:
+    form = UniversityForm
 
+  # get all universities from DB (names and id)
+  university_list = University.objects.all();
+  context = {
+    'university_list' : university_list,
+    'form': form
+  }
+  return render(request, 'micro/universities.html', context)
+
+@login_required
 def university(request, university_id):
   # get uni with this specific id
+  university = University.objects.get(id=university_id)
+
+  # submit or create the question form
+  if request.method == 'POST':
+    form = QuestionForm(request.POST)
+    new_question = form.save(commit=False)
+    new_question.user = request.user
+    new_question.university = university
+    form.save(commit=True)
+  else :
+    form = QuestionForm
+
   # get all questions from this university
-  return render(request, 'micro/university.html')
+  question_list = Question.objects.filter(university_id=university_id);
+
+  context = {
+    'university' : university,
+    'question_form' : form,
+    'question_list': question_list
+  }
+  return render(request, 'micro/university.html', context)
 
 def question(request, question_id):
   return render(request, 'micro/question.html')
@@ -30,11 +63,6 @@ def user(request, user_id):
 @login_required
 def follow_question(request):
   # follow this question
-  return render(request, 'micro/question.html')
-
-@login_required
-def post_question(request):
-  # create a new question and save to db
   return render(request, 'micro/question.html')
 
 @login_required
@@ -118,7 +146,13 @@ def home(request):
   #   'my_post' : my_post,
   #   'post_form' : PostForm
   # }
-  return render(request, 'micro/universities.html')
+  university_list = University.objects.all();
+  context = {
+    'university_list' : university_list,
+    'form': UniversityForm
+  }
+  return render(request, 'micro/universities.html', context)
+
 
 # Allows to post something and shows my most recent posts.
 # @login_required
