@@ -5,7 +5,7 @@
   <h3>{{ university.name }}</h3>
 
   <h4>Ask a question:</h4>
-	<form action="/micro/university/{{ university.id }}/" method="post">
+	<form action="/micro/post_question/{{ university.id }}/" method="post">
 	<table class="registerTable">
 	  {% csrf_token %}
 	  {{ question_form.as_table }}
@@ -14,18 +14,18 @@
 	</form>
 	<br><br><br>
 
-{% if question_list %}
-  <div class="card">
-    <ul class="list-group list-group-flush">
-    	{% for question in question_list %}
-      <li class="list-group-item"><a href="/micro/question/{{ question.id }}">{{ question.text }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+	{% if question_list %}
+	  <div class="card">
+	    <ul class="list-group list-group-flush">
+	    	{% for question in question_list %}
+	      <li class="list-group-item"><a href="/micro/question/{{ question.id }}">{{ question.text }}</a></li>
+	      {% endfor %}
+	    </ul>
+	  </div>
+	{% else %}
+	  <div class="card">
+	    There are no questions yet for {{ university.name }}. Ask one above!
+	  </div>
+	{% endif %}
 </div>
-{% else %}
-  <div class="card">
-    There are no questions yet for {{ university.name }}. Ask one above!
-  </div>
-{% endif %}
 {% endblock %}

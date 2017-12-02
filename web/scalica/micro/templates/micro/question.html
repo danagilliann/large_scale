@@ -2,18 +2,40 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3>Question here</h3>
+  <h2>{{ university.name }} <a href="/micro/university/{{ question.university_id }}/">🢠</a></h2>
+  <br><br>
+
+  <h4>Question:</h4>
+  <h3>{{ question.text }}</h3>
   <h6 class="card-subtitle mb-2 text-muted">
     <button type="button" class="btn btn-outline-primary btn-sm">Follow</button>
     <button type="button" class="btn btn-outline-danger btn-sm">Unfollow</button>
   </h6>
-  <div class="card">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="/micro/answer/123">Answer</a></li>
-      <li class="list-group-item"><a href="/micro/answer/123">Answer</a></li>
-      <li class="list-group-item"><a href="/micro/answer/123">Answer</a></li>
-    </ul>
-  </div>
-</div>
+  <br><br>
 
+  <h5>Answer this question:</h4>
+  <form action="/micro/post_answer/{{ question.id }}/" method="post">
+  <table class="registerTable">
+    {% csrf_token %}
+    {{ answer_form.as_table }}
+  </table>
+    <input type="submit" value="Submit" />
+  </form>
+  <br><br><br>
+
+  {% if answer_list %}
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        {% for answer in answer_list %}
+        <li class="list-group-item"><a href="/micro/answer/{{ answer.id }}">{{ answer.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% else %}
+    <div class="card">
+      There are no answers for this question yet. Answer above!
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
