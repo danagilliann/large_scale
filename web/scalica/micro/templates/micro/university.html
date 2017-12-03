@@ -2,18 +2,19 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3>{{ university.name }}</h3>
-
+  <h3><strong>{{ university.name }}</strong></h3>
+	
+  <hr />
   <h4>Ask a question:</h4>
 	<form action="/micro/post_question/{{ university.id }}/" method="post">
-	<table class="registerTable">
-	  {% csrf_token %}
-	  {{ question_form.as_table }}
-	</table>
-	  <input type="submit" value="Submit" />
+		<table class="registerTable">
+		  {% csrf_token %}
+		  {{ question_form.as_table }}
+		</table>
+	  <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
 	</form>
 	<br><br><br>
-
+	
 	{% if question_list %}
 	  <div class="card">
 	    <ul class="list-group list-group-flush">
