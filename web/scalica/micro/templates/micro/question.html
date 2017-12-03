@@ -7,7 +7,7 @@
   <br />
   <div class="card" style="">
    <div class="card-header">
-      <strong>Question</strong>
+      <strong>Question from <a href="/micro/user/{{ question_user.id }}/">{{ question_user }}</a></strong>
     </div>
     <div class="card-block">
       <h4 class="card-title">{{ question.text }}</h4>
@@ -33,9 +33,10 @@
   {% if message %}
     <p style="color: red;">{{ message }}</p>
   {% endif %}
-  <br><br><br>
+  <br><br>
 
   {% if answer_list %}
+    <h5>Answers:</h5>
     <div class="card">
       <ul class="list-group list-group-flush">
         {% for answer in answer_list %}
