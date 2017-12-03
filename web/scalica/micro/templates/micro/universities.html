@@ -33,5 +33,19 @@
       </form>
     </div>
   </div>
+
+{% if answers %}
+  <br />
+  <h5><strong>Dashboard</strong></h5>
+    <div class="card">
+      {% for answer in answers %}
+        <div class="card-block">
+          {{ answer.text }}
+          <br />
+          <strong><a href="/micro/question/{{ answer.question.id }}">↳ re: {{ answer.question.text }}</a></strong>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 </div>
 {% endblock %}
