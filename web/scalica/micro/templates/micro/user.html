@@ -31,18 +31,6 @@
       <input disabled class="form-control" type="text" value={{ university.name }}>
     </div>
   </div>
-  
-  {% if questions_followed %}
-  <hr />
-  <h5><strong>Questions followed</strong></h5>
-    <div class="card">
-      <ul class="list-group list-group-flush">
-        {% for question in questions_followed %}
-        <li class="list-group-item"><a href="/micro/question/{{ question.id }}">{{ question.text }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
 
   {% if questions_asked %}
   <hr />
