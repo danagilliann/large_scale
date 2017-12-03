@@ -14,14 +14,17 @@ com/example/common/PubsubFileInjector$Unbound.class
 com/example/WordCount$WordCountOptions.class
 com/example/common/PubsubFileInjector.class
 com/example/common/ExampleBigQueryTableOptions.class
+com/example/Duplicates.class
 com/example/common/DataflowExampleOptions.class
 com/example/WordCount$FormatAsTextFn.class
 com/example/MinimalWordCount.class
+com/example/Duplicates$1.class
 com/example/WindowedWordCount$FormatAsTableRowFn.class
 com/example/DebuggingWordCount$WordCountOptions.class
 com/example/WindowedWordCount$Options.class
 com/example/WordCount$CountWords.class
 com/example/WordCount$WordCountOptions$OutputFactory.class
+com/example/Duplicates$2.class
 com/example/common/ExamplePubsubTopicOptions.class
 com/example/common/PubsubFileInjector$Bound.class
 com/example/DebuggingWordCount$FilterTextFn.class
