@@ -86,7 +86,6 @@ def answer(request, answer_id):
   # get answer and question with the specified id
   _answer = Answer.objects.get(id=answer_id)
   _user = User.objects.get(id=_answer.user_id)
-  print(_user)
 
   context = {
     'answer' : _answer,
@@ -140,8 +139,6 @@ def post_university(request):
 @login_required
 def follow_question(request, question_id):
   # follow this question
-  print(request.user)
-  print(question_id)
 
   if request.method == 'POST':
     form = FollowingForm(request.POST)
