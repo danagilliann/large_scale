@@ -2,14 +2,30 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3>New York University</h3>
-  <div class="card">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="/micro/question/123">Question</a></li>
-      <li class="list-group-item"><a href="/micro/question/123">Question</a></li>
-      <li class="list-group-item"><a href="/micro/question/123">Question</a></li>
-    </ul>
-  </div>
-</div>
+  <h3>{{ university.name }}</h3>
 
+  <h4>Ask a question:</h4>
+	<form action="/micro/post_question/{{ university.id }}/" method="post">
+	<table class="registerTable">
+	  {% csrf_token %}
+	  {{ question_form.as_table }}
+	</table>
+	  <input type="submit" value="Submit" />
+	</form>
+	<br><br><br>
+
+	{% if question_list %}
+	  <div class="card">
+	    <ul class="list-group list-group-flush">
+	    	{% for question in question_list %}
+	      <li class="list-group-item"><a href="/micro/question/{{ question.id }}">{{ question.text }}</a></li>
+	      {% endfor %}
+	    </ul>
+	  </div>
+	{% else %}
+	  <div class="card">
+	    There are no questions yet for {{ university.name }}. Ask one above!
+	  </div>
+	{% endif %}
+</div>
 {% endblock %}

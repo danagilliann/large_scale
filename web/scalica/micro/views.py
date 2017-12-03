@@ -5,45 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-from .models import MyUserCreationForm
-
-
-# Quora-clone here
-def universities(request):
-  # get all universities from DB (names and id)
-  return render(request, 'micro/universities.html')
-
-def university(request, university_id):
-  # get uni with this specific id
-  # get all questions from this university
-  return render(request, 'micro/university.html')
-
-def question(request, question_id):
-  return render(request, 'micro/question.html')
-
-def answer(request, answer_id):
-  return render(request, 'micro/answer.html')
-
-def user(request, user_id):
-  return render(request, 'micro/user.html')
-
-@login_required
-def follow_question(request):
-  # follow this question
-  return render(request, 'micro/question.html')
-
-@login_required
-def post_question(request):
-  # create a new question and save to db
-  return render(request, 'micro/question.html')
-
-@login_required
-def post_answer(request):
-  # create a new answer and save to db
-  # redirect to question page
-  # we should be able to see the new answer
-  return render(request, 'micro/question.html')
-
+from .models import Answer, AnswerForm, MyUserCreationForm, Question, QuestionForm, University, UniversityForm
 
 # Anonymous views
 #################
@@ -55,34 +17,6 @@ def index(request):
 
 def anon_home(request):
   return render(request, 'micro/public.html')
-
-# def stream(request, user_id):  
-#   # See if to present a 'follow' button
-#   form = None
-#   if request.user.is_authenticated() and request.user.id != int(user_id):
-#     try:
-#       f = Following.objects.get(follower_id=request.user.id,
-#                                 followee_id=user_id)
-#     except Following.DoesNotExist:
-#       form = FollowingForm
-#   user = User.objects.get(pk=user_id)
-#   post_list = Post.objects.filter(user_id=user_id).order_by('-pub_date')
-#   paginator = Paginator(post_list, 10)
-#   page = request.GET.get('page')
-#   try:
-#     posts = paginator.page(page)
-#   except PageNotAnInteger:
-#     # If page is not an integer, deliver first page.
-#     posts = paginator.page(1) 
-#   except EmptyPage:
-#     # If page is out of range (e.g. 9999), deliver last page of results.
-#     posts = paginator.page(paginator.num_pages)
-#   context = {
-#     'posts' : posts,
-#     'stream_user' : user,
-#     'form' : form,
-#   }
-#   return render(request, 'micro/stream.html', context)
 
 def register(request):
   if request.method == 'POST':
@@ -100,49 +34,100 @@ def register(request):
     form = MyUserCreationForm
   return render(request, 'micro/register.html', {'form' : form})
 
+def universities(request):
+  # get all universities from DB (names and id)
+  university_list = University.objects.all();
+  context = {
+    'university_list' : university_list,
+    'form': UniversityForm
+  }
+  return render(request, 'micro/universities.html', context)
+
+def university(request, university_id):
+  # get uni with the specific id
+  _university = University.objects.get(id=university_id)
+
+  # get all questions from this university
+  question_list = Question.objects.filter(university_id=university_id);
+
+  context = {
+    'university' : _university,
+    'question_list': question_list,
+    'question_form' : QuestionForm
+  }
+  return render(request, 'micro/university.html', context)
+
+def question(request, question_id):
+  # get question and university with the specific id
+  _question = Question.objects.get(id=question_id)
+  _university = University.objects.get(id=_question.university_id)
+
+  # get all answers from this question
+  answer_list = Answer.objects.filter(question_id=question_id)
+
+  context = {
+    'question' : _question,
+    'university' : _university,
+    'answer_list' : answer_list,
+    'answer_form' : AnswerForm
+  }
+
+  return render(request, 'micro/question.html', context)
+
+def answer(request, answer_id):
+  # get answer and question with the specified id
+  _answer = Answer.objects.get(id=answer_id)
+
+  context = {
+    'answer' : _answer
+  }
+
+  return render(request, 'micro/answer.html', context)
+
+def user(request, user_id):
+  return render(request, 'micro/user.html')
+
+
 # Authenticated views
 #####################
 @login_required
 def home(request):
-  '''List of recent posts by people I follow'''
-  # try:
-  #   my_post = Post.objects.filter(user=request.user).order_by('-pub_date')[0]
-  # except IndexError:
-  #   my_post = None
-  # follows = [o.followee_id for o in Following.objects.filter(
-  #   follower_id=request.user.id)]
-  # post_list = Post.objects.filter(
-  #     user_id__in=follows).order_by('-pub_date')[0:10]
-  # context = {
-  #   'post_list': post_list,
-  #   'my_post' : my_post,
-  #   'post_form' : PostForm
-  # }
-  return render(request, 'micro/universities.html')
+  return universities(request)
 
-# Allows to post something and shows my most recent posts.
-# @login_required
-# def post(request):
-#   if request.method == 'POST':
-#     form = PostForm(request.POST)
-#     new_post = form.save(commit=False)
-#     new_post.user = request.user
-#     new_post.pub_date = timezone.now()
-#     new_post.save()
-#     return home(request)
-#   else:
-#     form = PostForm
-#   return render(request, 'micro/post.html', {'form' : form})
+@login_required
+def post_university(request):
+  if request.method == 'POST':
+      form = UniversityForm(request.POST)
+      form.save(commit=True)
+  return universities(request)
 
-#@login_required
-# def follow(request):
-#   if request.method == 'POST':
-#     form = FollowingForm(request.POST)
-#     new_follow = form.save(commit=False)
-#     new_follow.follower = request.user
-#     new_follow.follow_date = timezone.now()
-#     new_follow.save()
-#     return home(request)
-#   else:
-#     form = FollowingForm
-#   return render(request, 'micro/follow.html', {'form' : form})
+@login_required
+def follow_question(request):
+  # follow this question
+  return render(request, 'micro/question.html')
+
+@login_required
+def post_question(request, university_id):
+  if request.method == 'POST':
+    form = QuestionForm(request.POST)
+    new_question = form.save(commit=False)
+    new_question.user = request.user
+
+    _university = University.objects.get(id=university_id)
+    new_question.university = _university
+    new_question = form.save(commit=True)
+    return question(request, new_question.id)
+
+  else:
+    return university(request, university_id)
+
+@login_required
+def post_answer(request, question_id):
+  _question = Question.objects.get(id=question_id)
+  if request.method == 'POST':
+    form = AnswerForm(request.POST)
+    new_answer = form.save(commit=False)
+    new_answer.question = _question
+    new_answer.num_upvotes = 0
+    new_answer = form.save(commit=True)
+  return question(request, _question.id)

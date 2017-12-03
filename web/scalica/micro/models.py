@@ -42,7 +42,8 @@ class Answer(models.Model):
     timestamp = models.DateField(auto_now_add=True, editable=False)
     text = models.TextField(max_length=2000)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    num_upvotes = models.PositiveIntegerField()
+    num_upvotes = models.PositiveIntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Upvote(models.Model):
     """
