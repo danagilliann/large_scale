@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import Answer, AnswerForm, MyUserCreationForm, Question, QuestionForm, University, UniversityForm, Following, FollowingForm
+from .models import Answer, AnswerForm, MyUserCreationForm, Profile, ProfileForm, Question, QuestionForm, University, UniversityForm, Following, FollowingForm
 
 # Anonymous views
 #################
@@ -23,10 +23,10 @@ def register(request):
     form = MyUserCreationForm(request.POST)
     new_user = form.save(commit=True)
     # Log in that user.
-    user = authenticate(username=new_user.username,
+    _user = authenticate(username=new_user.username,
                         password=form.clean_password2())
-    if user is not None:
-      login(request, user)
+    if _user is not None:
+      login(request, _user)
     else:
       raise Exception
     return home(request)
@@ -97,6 +97,31 @@ def user(request, user_id):
 @login_required
 def home(request):
   return universities(request)
+
+@login_required
+def user(request, user_id):
+  _user = User.objects.get(id=user_id)
+  _profile = Profile.objects.get(user_id=user_id)
+  _university = None
+  profile_form = None
+  if _profile.university_id:
+    _university = University.objects.get(id=_profile.university_id)
+  if _user == request.user:
+    if request.method == 'POST':
+      profile_form = ProfileForm(request.POST, instance=request.user.profile)
+      _profile = profile_form.save(commit=True)
+      _university = _university = University.objects.get(id=_profile.university_id)
+    else:
+      profile_form = ProfileForm(instance=request.user.profile)
+
+  context = {
+    'user' : _user,
+    'profile' : _profile,
+    'university': _university,
+    'profile_form' : profile_form
+  }
+  return render(request, 'micro/user.html', context)
+
 
 @login_required
 def post_university(request):

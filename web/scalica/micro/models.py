@@ -9,6 +9,9 @@ from django.dispatch import receiver
 class University(models.Model):
     name = models.CharField(max_length=255)
 
+    def __unicode__(self):
+      return self.name
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
