@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -43,7 +44,7 @@ def universities(request):
   }
   return render(request, 'micro/universities.html', context)
 
-def university(request, university_id):
+def university(request, university_id, message=None):
   # get uni with the specific id
   _university = University.objects.get(id=university_id)
 
@@ -53,11 +54,12 @@ def university(request, university_id):
   context = {
     'university' : _university,
     'question_list': question_list,
-    'question_form' : QuestionForm
+    'question_form' : QuestionForm,
+    'message' : message
   }
   return render(request, 'micro/university.html', context)
 
-def question(request, question_id):
+def question(request, question_id, message=None):
   # get question and university with the specific id
   _question = Question.objects.get(id=question_id)
   _university = University.objects.get(id=_question.university_id)
@@ -73,7 +75,8 @@ def question(request, question_id):
     'university' : _university,
     'answer_list' : answer_list,
     'answer_form' : AnswerForm,
-    'not_followed': not_followed
+    'not_followed': not_followed,
+    'message' : message
   }
 
   return render(request, 'micro/question.html', context)
@@ -147,26 +150,44 @@ def follow_question(request, question_id):
 
 @login_required
 def post_question(request, university_id):
+  message = None
+  _profile = Profile.objects.get(user_id=request.user.id)
   if request.method == 'POST':
-    form = QuestionForm(request.POST)
-    new_question = form.save(commit=False)
-    new_question.user = request.user
-
     _university = University.objects.get(id=university_id)
-    new_question.university = _university
-    new_question = form.save(commit=True)
-    return question(request, new_question.id)
-
-  else:
-    return university(request, university_id)
+    print(_profile.university_id)
+    print(university_id)
+    print(str(_profile.university_id) + " and " + str(university_id))
+    if long(_profile.university_id) == long(university_id):
+      form = QuestionForm(request.POST)
+      new_question = form.save(commit=False)
+      new_question.user = request.user
+      new_question.university = _university
+      if (form.is_valid()):
+        new_question = form.save(commit=True)
+        return question(request, new_question.id)
+      else:
+        message = "Form invalid"
+    else:
+      print("HEREEEE")
+      message = "You must be in " + str(_university) + " to ask a question."
+  return university(request, university_id, message)
 
 @login_required
 def post_answer(request, question_id):
   _question = Question.objects.get(id=question_id)
+  _profile = Profile.objects.get(user_id=request.user.id)
+  message = None
   if request.method == 'POST':
-    form = AnswerForm(request.POST)
-    new_answer = form.save(commit=False)
-    new_answer.question = _question
-    new_answer.user = request.user
-    new_answer = form.save(commit=True)
-  return question(request, _question.id)
+    if long(_profile.university_id) == long(_question.university_id):
+      form = AnswerForm(request.POST)
+      new_answer = form.save(commit=False)
+      new_answer.question = _question
+      new_answer.user = request.user
+      if (form.is_valid()):
+        new_answer = form.save(commit=True)
+      else:
+        message = "Form invalid"
+    else:
+      _university = University.objects.get(id=_question.university_id)
+      message="You must be in " + str(_university) + " to answer this question."
+  return question(request, question_id, message)
