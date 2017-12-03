@@ -13,6 +13,9 @@
 		</table>
 	  <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
 	</form>
+	{% if message %}
+      <p style="color: red;">{{ message }}</p>
+    {% endif %}
 	<br><br><br>
 	
 	{% if question_list %}
