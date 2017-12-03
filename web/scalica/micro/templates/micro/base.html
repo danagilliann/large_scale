@@ -14,7 +14,7 @@
     <h1 class="navbar-brand mb-0">
       {% if user.is_authenticated %}
         <a href="/micro" style="margin-right: 20px;">Home </a>
-        <a href="/micro/user/{{user.id}}/" style="margin-right: 20px;">{{ user.username }}</a>
+        <a href="/micro/user/{{user.id}}/" style="margin-right: 20px;">My Profile</a>
         <a href="{% url 'micro:logout' %}" style="margin-right: 20px;">Log Out</a>
           {% else %}
         <a href="{% url 'micro:login' %}" style="margin-right: 20px;">Log In</a>
