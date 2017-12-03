@@ -43,9 +43,6 @@ class Following(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-  # def __str__(self):
-  # return self.follower.username + "->" + self.followee.text
-
 class Answer(models.Model):
     timestamp = models.DateField(auto_now_add=True, editable=False)
     text = models.TextField(max_length=2000)
