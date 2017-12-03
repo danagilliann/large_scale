@@ -10,7 +10,8 @@
   <nav class="navbar navbar-light bg-faded">
     <h1 class="navbar-brand mb-0">
       {% if user.is_authenticated %}
-        <a href="/micro/user/123">{{ user.username }}</a>
+        <a href="/micro">Home </a>
+        <a href="/micro/user/{{user.id}}/">{{ user.username }}</a>
         <a href="{% url 'micro:logout' %}">Log Out</a>
           {% else %}
         <a href="{% url 'micro:login' %}">Log In</a>

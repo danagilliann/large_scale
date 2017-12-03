@@ -2,14 +2,32 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3>All Universities</h3>
-  <div class="card">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="/micro/university/123">New York University</a></li>
-      <li class="list-group-item"><a href="/micro/university/123">New York University</a></li>
-      <li class="list-group-item"><a href="/micro/university/123">New York University</a></li>
-    </ul>
-  </div>
-</div>
+	<h3>Add Your University:</h3>
+	<form action="/micro/post_university/" method="post">
+	<table class="registerTable">
+	  {% csrf_token %}
+	  {{ form.as_table }}
+	</table>
+	  <input type="submit" value="Submit" />
+	</form>
+	<br><br><br>
 
+  <h3>All Universities</h3>
+  {% if university_list %}
+    <div class="card">
+    	<ul class="list-group list-group-flush">
+    		{% for university in university_list %}
+    		<li class="list-group-item"><a href="/micro/university/{{university.id}}">{{ university.name }}</a></li>
+    		{% endfor %}
+        <li class="list-group-item">Don't see your university? Add it above!</li>
+    	</ul>
+    </div>
+  </div>
+  {% else %}
+    <div class="card">
+     <div class="card-block">
+        No universities yet. Add one above.
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}

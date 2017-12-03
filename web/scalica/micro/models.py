@@ -9,6 +9,9 @@ from django.dispatch import receiver
 class University(models.Model):
     name = models.CharField(max_length=255)
 
+    def __unicode__(self):
+      return self.name
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
@@ -38,11 +41,17 @@ class Question(models.Model):
     def get_answers_by_date(self):
         return self.answer_set.order_by('-timestamp')
 
+class Following(models.Model):
+  timestamp = models.DateField(auto_now_add=True, editable=False)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
 class Answer(models.Model):
     timestamp = models.DateField(auto_now_add=True, editable=False)
     text = models.TextField(max_length=2000)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    num_upvotes = models.PositiveIntegerField()
+    num_upvotes = models.PositiveIntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Upvote(models.Model):
     """
@@ -102,6 +111,11 @@ class UniversityForm(ModelForm):
         model = University
         fields = ['name']
 
+class FollowingForm(ModelForm):
+    class Meta():
+        model = Following
+        fields = []
+
 """
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -120,14 +134,6 @@ class Post(models.Model):
       desc = self.text[0:16]
     return self.user.username + ':' + desc
 
-class Following(models.Model):
-  follower = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               related_name="user_follows")
-  followee = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               related_name="user_followed")
-  follow_date = models.DateTimeField('follow data')
-  def __str__(self):
-    return self.follower.username + "->" + self.followee.username
 
 # Model Forms
 class PostForm(ModelForm):

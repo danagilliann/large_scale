@@ -2,9 +2,18 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <p>
-    This is an answer. Link back to the question.
-  </p>
+  <h3><a href="/micro/question/{{ answer.question_id }}/">🢠</a> <strong>Return to the question</strong></h3>
+
+  <br />
+  <div class="card" style="">
+   <div class="card-header">
+      <strong>Answer by <a href="/micro/user/{{ answer_user.id }}/">{{ answer_user }}</a></strong>
+    </div>
+    <div class="card-block">
+      <h4 class="card-title">{{ answer.text }}</h4>
+    </div>
+  </div>
+  <br><br>
 </div>
 
 {% endblock %}
