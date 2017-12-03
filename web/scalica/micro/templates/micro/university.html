@@ -16,9 +16,10 @@
   {% if message %}
     <p style="color: red;">{{ message }}</p>
   {% endif %}
-	<br><br><br>
+  <br><br>
 	
 	{% if question_list %}
+    <h4>Questions:</h4>
 	  <div class="card">
 	    <ul class="list-group list-group-flush">
 	    	{% for question in question_list %}

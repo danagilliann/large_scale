@@ -62,6 +62,7 @@ def question(request, question_id, message=None):
   # get question and university with the specific id
   _question = Question.objects.get(id=question_id)
   _university = University.objects.get(id=_question.university_id)
+  _user = User.objects.get(id=_question.user_id)
 
   # get all answers from this question
   answer_list = Answer.objects.filter(question_id=question_id)
@@ -75,7 +76,8 @@ def question(request, question_id, message=None):
     'answer_list' : answer_list,
     'answer_form' : AnswerForm,
     'not_followed': not_followed,
-    'message' : message
+    'message' : message,
+    'question_user' : _user
   }
 
   return render(request, 'micro/question.html', context)
@@ -83,9 +85,11 @@ def question(request, question_id, message=None):
 def answer(request, answer_id):
   # get answer and question with the specified id
   _answer = Answer.objects.get(id=answer_id)
+  _user = User.objects.get(id=_answer.user_id)
 
   context = {
-    'answer' : _answer
+    'answer' : _answer,
+    'answer_user' : _user
   }
 
   return render(request, 'micro/answer.html', context)
@@ -135,8 +139,6 @@ def post_university(request):
 @login_required
 def follow_question(request, question_id):
   # follow this question
-  print(request.user)
-  print(question_id)
 
   if request.method == 'POST':
     form = FollowingForm(request.POST)
