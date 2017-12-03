@@ -2,9 +2,9 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h2>{{ university.name }} <a href="/micro/university/{{ question.university_id }}/">🢠</a></h2>
-  <br><br>
-
+  <h3><a href="/micro/university/{{ question.university_id }}/">🢠</a> <strong>{{ university.name }}</strong></h3>
+  
+  <hr />
   <h4>Question:</h4>
   <h3>{{ question.text }}</h3>
   <h6 class="card-subtitle mb-2 text-muted">
