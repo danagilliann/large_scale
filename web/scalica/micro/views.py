@@ -120,11 +120,18 @@ def user(request, user_id):
     else:
       profile_form = ProfileForm(instance=request.user.profile)
 
+  question_ids = [o.question_id for o in Following.objects.filter(user_id=user_id)]
+  questions_followed = Question.objects.filter(id__in=question_ids).order_by('-timestamp')
+  questions_asked = Question.objects.filter(user_id=user_id).order_by('-timestamp')
+
   context = {
     'user' : _user,
     'profile' : _profile,
     'university': _university,
-    'profile_form' : profile_form
+    'profile_form' : profile_form,
+    'questions_followed': questions_followed,
+    'questions_asked': questions_asked
+
   }
   return render(request, 'micro/user.html', context)
 
