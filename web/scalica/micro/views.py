@@ -128,6 +128,6 @@ def post_answer(request, question_id):
     form = AnswerForm(request.POST)
     new_answer = form.save(commit=False)
     new_answer.question = _question
-    new_answer.num_upvotes = 0
+    new_answer.user = request.user
     new_answer = form.save(commit=True)
   return question(request, _question.id)
