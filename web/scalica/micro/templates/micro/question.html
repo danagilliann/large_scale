@@ -5,7 +5,7 @@
   <h3><a href="/micro/university/{{ question.university_id }}/">🢠</a> <strong>{{ university.name }}</strong></h3>
   
   <br />
-  <div class="card" style="">
+  <div class="card">
    <div class="card-header">
       <strong>Question from <a href="/micro/user/{{ question_user.id }}/">{{ question_user }}</a></strong>
     </div>
@@ -22,18 +22,27 @@
   </div>
 
  <br />
-  <h5>Answer this question:</h4>
-  <form action="/micro/post_answer/{{ question.id }}/" method="post">
-  <table class="registerTable">
-    {% csrf_token %}
-    {{ answer_form.as_table }}
-  </table>
-    <input type="submit" value="Submit" />
-  </form>
-  {% if message %}
-    <p style="color: red;">{{ message }}</p>
-  {% endif %}
-  <br><br>
+
+   <div class="card">
+     <div class="card-header">
+        <strong>Answer this question</strong>
+      </div>
+      <div class="card-block">
+        <form action="/micro/post_answer/{{ question.id }}/" method="post">
+          <p><table class="registerTable">
+            {% csrf_token %}
+            {{ answer_form.as_table }}
+          </table></p>
+          <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
+        </form>
+
+        {% if message %}
+          <p style="color: red;">{{ message }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+  <br>
 
   {% if answer_list %}
     <h5>Answers:</h5>

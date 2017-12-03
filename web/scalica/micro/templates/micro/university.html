@@ -5,12 +5,12 @@
   <h3><strong>{{ university.name }}</strong></h3>
 	
   <hr />
-  <h4>Ask a question:</h4>
+  <h4><strong>Ask a question</strong></h4>
 	<form action="/micro/post_question/{{ university.id }}/" method="post">
-		<table class="registerTable">
+		<p><table class="registerTable">
 		  {% csrf_token %}
 		  {{ question_form.as_table }}
-		</table>
+		</table></p>
 	  <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
 	</form>
   {% if message %}
