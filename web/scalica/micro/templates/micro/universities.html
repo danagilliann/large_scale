@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-	<h3>Add University:</h3>
+	<h3>Add Your University:</h3>
 	<form action="/micro/post_university/" method="post">
 	<table class="registerTable">
 	  {% csrf_token %}
@@ -19,6 +19,7 @@
     		{% for university in university_list %}
     		<li class="list-group-item"><a href="/micro/university/{{university.id}}">{{ university.name }}</a></li>
     		{% endfor %}
+        <li class="list-group-item">Don't see your university? Add it above!</li>
     	</ul>
     </div>
   </div>
