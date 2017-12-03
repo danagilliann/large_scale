@@ -30,7 +30,7 @@ def register(request):
       login(request, _user)
     else:
       raise Exception
-    return home(request)
+    return redirect('/micro/user/' + str(_user.id))
   else:
     form = MyUserCreationForm
   return render(request, 'micro/register.html', {'form' : form})
@@ -154,9 +154,6 @@ def post_question(request, university_id):
   _profile = Profile.objects.get(user_id=request.user.id)
   if request.method == 'POST':
     _university = University.objects.get(id=university_id)
-    print(_profile.university_id)
-    print(university_id)
-    print(str(_profile.university_id) + " and " + str(university_id))
     if long(_profile.university_id) == long(university_id):
       form = QuestionForm(request.POST)
       new_question = form.save(commit=False)
@@ -168,7 +165,6 @@ def post_question(request, university_id):
       else:
         message = "Form invalid"
     else:
-      print("HEREEEE")
       message = "You must be in " + str(_university) + " to ask a question."
   return university(request, university_id, message)
 
@@ -189,5 +185,5 @@ def post_answer(request, question_id):
         message = "Form invalid"
     else:
       _university = University.objects.get(id=_question.university_id)
-      message="You must be in " + str(_university) + " to answer this question."
+      message = "You must be in " + str(_university) + " to answer this question."
   return question(request, question_id, message)
