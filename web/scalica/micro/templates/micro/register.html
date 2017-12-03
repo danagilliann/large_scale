@@ -1,12 +1,10 @@
 {% extends "micro/base.html" %}
 {% block content %}
-<div class="container" style="padding: 30px;">
-  <form action="/micro/register/" method="post">
-  <table class="registerTable">
-    {% csrf_token %}
-    {{ form.as_table }}
-  </table>
-    <input type="submit" value="Submit" />
-  </form>
-</div>
+<form action="/micro/register/" method="post">
+<table class="registerTable">
+  {% csrf_token %}
+  {{ form.as_table }}
+</table>
+  <input type="submit" value="Submit" />
+</form>
 {% endblock %}

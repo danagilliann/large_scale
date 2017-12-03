@@ -2,15 +2,27 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3><strong>All Universities</strong></h3>
+	<h3>Add Your University:</h3>
+	<form action="/micro/post_university/" method="post">
+	<table class="registerTable">
+	  {% csrf_token %}
+	  {{ form.as_table }}
+	</table>
+	  <input type="submit" value="Submit" />
+	</form>
+	<br><br><br>
+
+  <h3>All Universities</h3>
   {% if university_list %}
     <div class="card">
     	<ul class="list-group list-group-flush">
     		{% for university in university_list %}
     		<li class="list-group-item"><a href="/micro/university/{{university.id}}">{{ university.name }}</a></li>
     		{% endfor %}
+        <li class="list-group-item">Don't see your university? Add it above!</li>
     	</ul>
     </div>
+  </div>
   {% else %}
     <div class="card">
      <div class="card-block">
@@ -18,20 +30,4 @@
       </div>
     </div>
   {% endif %}
-
-  <br/>
-  <div class="card"> 
-     <div class="card-block">
-      <h5><strong>Don't see your university? Add it here!</strong></h5>
-      <hr/>
-      <form action="/micro/post_university/" method="post">
-        <table class="registerTable">
-          {% csrf_token %}
-          {{ form.as_table }}
-        </table>
-        <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
-      </form>
-    </div>
-  </div>
-</div>
 {% endblock %}
