@@ -4,20 +4,24 @@
 <div class="container" style="padding: 30px;">
   <h3><a href="/micro/university/{{ question.university_id }}/">🢠</a> <strong>{{ university.name }}</strong></h3>
   
-  <hr />
-  <h4>Question:</h4>
-  <h3>{{ question.text }}</h3>
-  <h6 class="card-subtitle mb-2 text-muted">
-    {% if not_followed %}
-    <form action="/micro/follow/{{ question.id }}/" method="post">
-      {% csrf_token %}
-      {{ form }}
-      <button type="submit" class="btn btn-outline-primary btn-sm">Follow</button>
-    </form>
-    {% endif %}
-  </h6>
-  <br><br>
+  <br />
+  <div class="card" style="">
+   <div class="card-header">
+      <strong>Question</strong>
+    </div>
+    <div class="card-block">
+      <h4 class="card-title">{{ question.text }}</h4>
+      {% if not_followed %}
+        <form action="/micro/follow/{{ question.id }}/" method="post">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit" class="btn btn-outline-primary btn-sm">Follow</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
 
+ <br />
   <h5>Answer this question:</h4>
   <form action="/micro/post_answer/{{ question.id }}/" method="post">
   <table class="registerTable">
@@ -39,7 +43,9 @@
   </div>
   {% else %}
     <div class="card">
+      <div class="card-block">
       There are no answers for this question yet. Answer above!
+      </div>
     </div>
   {% endif %}
 </div>
