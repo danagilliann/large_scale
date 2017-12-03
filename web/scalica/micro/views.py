@@ -37,9 +37,19 @@ def register(request):
 def universities(request):
   # get all universities from DB (names and id)
   university_list = University.objects.all();
+
+  if request.user.is_authenticated():
+    question_ids = [o.question_id for o in Following.objects.filter(user_id=request.user.id)]
+
+    # answers
+    answers = Answer.objects.filter(id__in=question_ids).order_by('-timestamp')
+  else:
+    answers = []
+
   context = {
     'university_list' : university_list,
-    'form': UniversityForm
+    'form': UniversityForm,
+    'answers': answers
   }
   return render(request, 'micro/universities.html', context)
 
@@ -169,6 +179,13 @@ def post_question(request, university_id):
       new_question.university = _university
       if (form.is_valid()):
         new_question = form.save(commit=True)
+        # user automatically follows their own question
+        form = FollowingForm(request.POST)
+        follow = form.save(commit=False)
+        follow.user = request.user
+        follow.question = Question.objects.get(id=new_question.id)
+        follow = form.save(commit=True)
+
         return question(request, new_question.id)
       else:
         message = "Form invalid"
