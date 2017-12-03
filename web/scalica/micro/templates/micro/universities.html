@@ -25,10 +25,10 @@
       <h5><strong>Don't see your university? Add it here!</strong></h5>
       <hr/>
       <form action="/micro/post_university/" method="post">
-        <table class="registerTable">
+        <p><table class="registerTable">
           {% csrf_token %}
           {{ form.as_table }}
-        </table>
+        </table></p>
         <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
       </form>
     </div>
