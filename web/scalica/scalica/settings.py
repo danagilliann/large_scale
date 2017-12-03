@@ -103,10 +103,6 @@ WSGI_APPLICATION = 'scalica.wsgi.application'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.mysql',
-    'HOST': '35.192.61.117',
-    'NAME': 'scalica',
-    'USER': 'root',
-    'PASSWORD': '',
     'OPTIONS': {
       'read_default_file': os.path.join(BASE_DIR, '..', '..', 'db', 'my.cnf'),
     },
