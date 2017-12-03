@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^post_university/$', views.post_university, name='post_university'),    
     url(r'^post_question/(?P<university_id>[0-9]+)/$', views.post_question, name='post_question'),
     url(r'^post_answer/(?P<question_id>[0-9]+)/$', views.post_answer, name='post_answer'),
+    url(r'^follow/(?P<question_id>[0-9]+)/$', views.follow_question, name='follow'),
     url('^', include('django.contrib.auth.urls'))
 ]

@@ -3,9 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import Answer, AnswerForm, MyUserCreationForm, Question, QuestionForm, University, UniversityForm
+from .models import Answer, AnswerForm, MyUserCreationForm, Question, QuestionForm, University, UniversityForm, Following, FollowingForm
 
 # Anonymous views
 #################
@@ -65,11 +65,15 @@ def question(request, question_id):
   # get all answers from this question
   answer_list = Answer.objects.filter(question_id=question_id)
 
+  # check if user has already followed this question
+  not_followed = Following.objects.filter(question_id=question_id).filter(user_id=request.user.id).count() == 0
+
   context = {
     'question' : _question,
     'university' : _university,
     'answer_list' : answer_list,
-    'answer_form' : AnswerForm
+    'answer_form' : AnswerForm,
+    'not_followed': not_followed
   }
 
   return render(request, 'micro/question.html', context)
@@ -102,9 +106,19 @@ def post_university(request):
   return universities(request)
 
 @login_required
-def follow_question(request):
+def follow_question(request, question_id):
   # follow this question
-  return render(request, 'micro/question.html')
+  print(request.user)
+  print(question_id)
+
+  if request.method == 'POST':
+    form = FollowingForm(request.POST)
+    follow = form.save(commit=False)
+    follow.user = request.user
+    follow.question = Question.objects.get(id=question_id)
+    follow = form.save(commit=True)
+
+  return redirect('/micro/question/' + question_id)
 
 @login_required
 def post_question(request, university_id):
