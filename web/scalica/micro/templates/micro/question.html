@@ -8,8 +8,13 @@
   <h4>Question:</h4>
   <h3>{{ question.text }}</h3>
   <h6 class="card-subtitle mb-2 text-muted">
-    <button type="button" class="btn btn-outline-primary btn-sm">Follow</button>
-    <button type="button" class="btn btn-outline-danger btn-sm">Unfollow</button>
+    {% if not_followed %}
+    <form action="/micro/follow/{{ question.id }}/" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <button type="submit" class="btn btn-outline-primary btn-sm">Follow</button>
+    </form>
+    {% endif %}
   </h6>
   <br><br>
 
