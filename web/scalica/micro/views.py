@@ -40,9 +40,7 @@ def universities(request):
 
   if request.user.is_authenticated():
     question_ids = [o.question_id for o in Following.objects.filter(user_id=request.user.id)]
-
-    # answers
-    answers = Answer.objects.filter(id__in=question_ids).order_by('-timestamp')
+    answers = Answer.objects.filter(question_id__in=question_ids)
   else:
     answers = []
 
