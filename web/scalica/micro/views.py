@@ -40,7 +40,7 @@ def universities(request):
 
   if request.user.is_authenticated():
     question_ids = [o.question_id for o in Following.objects.filter(user_id=request.user.id)]
-    answers = Answer.objects.filter(question_id__in=question_ids)
+    answers = Answer.objects.filter(question_id__in=question_ids).order_by('-id')
   else:
     answers = []
 
@@ -129,8 +129,8 @@ def user(request, user_id):
       profile_form = ProfileForm(instance=request.user.profile)
 
   question_ids = [o.question_id for o in Following.objects.filter(user_id=user_id)]
-  questions_followed = Question.objects.filter(id__in=question_ids).order_by('-timestamp')
-  questions_asked = Question.objects.filter(user_id=user_id).order_by('-timestamp')
+  questions_followed = Question.objects.filter(id__in=question_ids).order_by('-id')
+  questions_asked = Question.objects.filter(user_id=user_id).order_by('-id')
 
   context = {
     'user' : _user,
