@@ -26,3 +26,9 @@ $ cd web/scalica
 $ python manage.py runserver
 
 Access the site at http://localhost:8000/micro
+
+Restart DB:
+1) in /web/scalica, run python manage.py flush
+2) $ in /web/scalica rm -rf /micro/migrations/*
+3) drop scalica database in your mysql
+4) re-run all set-up steps in the github README starting from ./install_db.sh
