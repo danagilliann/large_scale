@@ -72,6 +72,8 @@ def question(request, question_id, message=None):
   _university = University.objects.get(id=_question.university_id)
   _user = User.objects.get(id=_question.user_id)
 
+  duplicate = _question.duplicate_of
+
   # get all answers from this question
   answer_list = Answer.objects.filter(question_id=question_id)
 
@@ -85,7 +87,8 @@ def question(request, question_id, message=None):
     'answer_form' : AnswerForm,
     'not_followed': not_followed,
     'message' : message,
-    'question_user' : _user
+    'question_user' : _user,
+    'duplicate' : duplicate
   }
 
   return render(request, 'micro/question.html', context)
