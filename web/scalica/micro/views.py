@@ -73,14 +73,14 @@ def question(request, question_id, message=None):
   _university = University.objects.get(id=_question.university_id)
   _user = User.objects.get(id=_question.user_id)
 
-  duplicate = _question.duplicate_of
+  #duplicate = _question.duplicate_of
+  duplicate = Question.objects.get(id=1)
 
   # get all answers from this question
-  answer_list = None
+  answer_list = Answer.objects.filter(question_id=question_id)
   if duplicate:
-    answer_list = Answer.objects.filter(question_id=duplicate.id)
-  else:
-    answer_list = Answer.objects.filter(question_id=question_id)
+    answers_of_duplicate = Answer.objects.filter(question_id=duplicate.id)
+    answer_list = answers_of_duplicate | answer_list
 
   # check if user has already followed this question
   not_followed = Following.objects.filter(question_id=question_id).filter(user_id=request.user.id).count() == 0
