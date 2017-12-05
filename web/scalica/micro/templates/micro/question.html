@@ -11,6 +11,9 @@
     </div>
     <div class="card-block">
       <h4 class="card-title">{{ question.text }}</h4>
+      {% if duplicate %}
+      <p>Duplicate of <a href="/micro/question/{{ duplicate.id }}"></a></p>
+      {% endif %}
       {% if not_followed %}
         <form action="/micro/follow/{{ question.id }}/" method="post">
           {% csrf_token %}
