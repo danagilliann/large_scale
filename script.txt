@@ -50,18 +50,7 @@ python manage.py collectstatic --noinput
 
 # set up creds.json
 cat <<EOF > creds.json
-{
-  "type": "service_account",
-  "project_id": "windy-watch-186102",
-  "private_key_id": "ddd6b56b68c3552041ac8042e04b93003b04e8c7",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDiSXYODip1icAs\n6ZcDcYUglxzFt4Nh6FBXd9wUiCSrwWKcNpXsbLMXysxe560BxVAH+gaVCkhskJ1n\nL3hdRdtgn9IxSMzfXZj2MxJmgJMnt3M5COIA3QNOKRt5ltSysv+UC2zQIGCi5Ffr\nHXIB2WaMRuOczqE4C77bUFXuzab+wWFSSNhjpe9mSnqOus9TU65r0shBk87Cji/v\n7mNmXZPecHzI6NPgp/qXUhMp9yFiK1W2Li30TulEg4o6zjMa+tTsDcbCD1jtyHSB\nHfC86QbK2nW6gvmBXmAoyheb26fid2ddxs6wl/VfwZN357K2E5fe/RWJZlVzO0W8\nbUotVBw7AgMBAAECggEAA8dNlQSANFWS2O0kRrwcM07H/eEyQhiaptXrMzM8HDDE\nJcRKPUK/ZtP4alPyBp012JGV5I03EmEDz9ecvz9NtM+rty5LsCXO9RAl7CzqHXf/\nEOJowQeaaNwKMmiQr/80gf4C2M2BmkFihRwzwtDPg+N3JNoqb6t6igz4XQl1aBGT\nM7NBzPD5Q70QfNp8IDXwbj2SzCgBO6gg0hfxH5+pYZL8PT2cxtHxTzy0rbIU0bhy\nvxGEW/siJ2BtiEkw9AouDQyrba63EF3IByx3Y4E131jz+kb2KBtAz3/FLgOMzLBa\nCU7yQxnAqYrTFuZk03WZSgHVNJeAmmQQNWR74mtRiQKBgQD7klFeFg8Rbuq83mQk\nPkB+DmKGBP3iAr1PZX1Zue//RVIkZtZM2nthuGnpCM/yYMNuNgadiiE4uQXLqbaM\nu7zpH+uk6taT9yq7UeR1k4UDWQR8YkM64Yt5nVRDwPBhFDkbUXx5jMB2851PwVuY\nf5J2Q0/7B/rTojf2kzK5htmirQKBgQDmRTNnOu1zrCByxY4JgZq4PNfNzTO880ZH\nB362BwKYIUJqG+1n90SpcBjrk15Fbm8MB3Y4ps7CcDgNx+WwOJykeOszxWjI69A9\nDgvjgJXUrwLQHmdpYQi5dCpDua+W6Rw1C9OYbG9zC/WkZD74A+Aqqu5mH1CPLPLL\nMczdKzn/hwKBgQD52BvlRCUc3DpW7ssnz4d/acvhbA20q6HVu2adePNoYzEsI9HL\nK+UDbQIKRQ04m28cAp3ZUfiie+bMmLVK2ZzJLkF6XRxUgVG4DaHGP4cHhx3UZkZ8\nsMkzM9QfIfvZfhslDW2Azg/LUzC1p8PPFUuhFkLVfdxW2LGZuiDTbqCwVQKBgCkd\nth36oaeD1o9nwwLjh3LaOlZfC5vzfFr2daOfANGVLryvm+Zyemoev/RgbfbLzzxA\noNVgw45oZznetZ6PnTio9qZZ22n04UvllC3dKeO+FCyBIUnpr5sdqOZK45V4rjay\nk+elhQjv276sv6mdV4uG1eaaNNI73mZ1z/S14TdFAoGBAMdPiMMC6+4GuOoN/gn+\n/23f5uemctrT9Q56DkX2e757X1MCysaPngC9M/1zZZDomhW9b33WLvqfhsjzheci\nbTOrIWMpTuadgNMWuZLzlK2/k3fMwVCDLtt6zXge3997X68EM2s5ka1vBA2Pmy9E\n8RNNWc3dLN9XU70i8v20IMyu\n-----END PRIVATE KEY-----\n",
-  "client_email": "sql-cora@windy-watch-186102.iam.gserviceaccount.com",
-  "client_id": "112966537724317909845",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://accounts.google.com/o/oauth2/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sql-cora%40windy-watch-186102.iam.gserviceaccount.com"
-}
+// our credentials here
 EOF
 
 # Use the following config.
