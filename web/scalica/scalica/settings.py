@@ -106,9 +106,20 @@ DATABASES = {
     'NAME': 'scalica',
     'USER': 'root',
     'PASSWORD': '',
-    'HOST': 'localhost'
+    'HOST': '/cloudsql/windy-watch-186102:us-central1:cora-sql'
   }
 }
+
+# comment out if using local host
+# DATABASES = {
+#   'default': {
+#     'ENGINE': 'django.db.backends.mysql',
+#     'NAME': 'scalica',
+#     'USER': 'root',
+#     'PASSWORD': '',
+#     'HOST': 'localhost'
+#   }
+# }
 
 # Database routers go here:
 # DATABASE_ROUTERS = ['micro.routers.UserRouter']
