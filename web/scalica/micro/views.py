@@ -21,18 +21,19 @@ def anon_home(request):
 def register(request):
   if request.method == 'POST':
     form = MyUserCreationForm(request.POST)
-    new_user = form.save(commit=True)
-    # Log in that user.
-    _user = authenticate(username=new_user.username,
-                        password=form.clean_password2())
-    if _user is not None:
-      login(request, _user)
-    else:
-      raise Exception
-    return redirect('/micro/user/' + str(_user.id))
+    if (form.is_valid()):
+      new_user = form.save(commit=True)
+      # Log in that user.
+      _user = authenticate(username=new_user.username,
+                          password=form.clean_password2())
+      if _user is not None:
+        login(request, _user)
+      else:
+        raise Exception
+      return redirect('/micro/user/' + str(_user.id))
   else:
     form = MyUserCreationForm
-  return render(request, 'micro/register.html', {'form' : form})
+  return render(request, 'micro/register.html', { 'form': form })
 
 def universities(request):
   # get all universities from DB (names and id)
@@ -75,7 +76,11 @@ def question(request, question_id, message=None):
   duplicate = _question.duplicate_of
 
   # get all answers from this question
-  answer_list = Answer.objects.filter(question_id=question_id)
+  answer_list = None
+  if duplicate:
+    answer_list = Answer.objects.filter(question_id=duplicate.id)
+  else:
+    answer_list = Answer.objects.filter(question_id=question_id)
 
   # check if user has already followed this question
   not_followed = Following.objects.filter(question_id=question_id).filter(user_id=request.user.id).count() == 0
