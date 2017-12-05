@@ -37,3 +37,15 @@ Connecting the Compute Engine instance to Cloud SQL instance:
 - https://cloud.google.com/sql/docs/mysql/connect-compute-engine
 - use UNIX sockets instructions, not TCP socket instructions
 - `service apache2 reload`
+- check:
+```
+cd var/www/site/scalica
+ls
+```
+you should have:
+cloud_sql_proxy (executable)
+creds.json (credentials for cloud sql)
+manage.py
+micro
+scalica
+utils
