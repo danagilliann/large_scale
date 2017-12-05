@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3><strong>Profile for {{ user }}</strong></h3>
+  <h3><strong>Profile for {{ profile_user }}</strong></h3>
   <hr/>
   <div class="form-group row">
     <label for="example-text-input" class="col-2 col-form-label"><strong>First Name</strong></label>
@@ -47,7 +47,7 @@
   {% if profile_form %}
     <hr />
     <h5><strong>Edit your profile:</strong></h5>
-    <form action="/micro/user/{{ user.id }}/" method="post">
+    <form action="/micro/user/{{ profile_user.id }}/" method="post">
     <table class="registerTable">
       {% csrf_token %}
       {{ profile_form.as_table }}

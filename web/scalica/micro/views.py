@@ -136,7 +136,7 @@ def user(request, user_id):
   questions_asked = Question.objects.filter(user_id=user_id).order_by('-id')
 
   context = {
-    'user' : _user,
+    'profile_user' : _user,
     'profile' : _profile,
     'university': _university,
     'profile_form' : profile_form,

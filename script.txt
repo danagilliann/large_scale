@@ -48,6 +48,11 @@ python manage.py makemigrations micro
 python manage.py migrate
 python manage.py collectstatic --noinput
 
+# set up creds.json
+cat <<EOF > creds.json
+// our credentials here
+EOF
+
 # Use the following config.
 cat <<EOF > /etc/apache2/sites-available/scalica.conf
 WSGIScriptAlias / /var/www/site/scalica/scalica/wsgi.py
@@ -68,3 +73,11 @@ EOF
 a2ensite scalica
 service apache2 reload
 # We should be able to serve now.
+
+wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+chmod +x cloud_sql_proxy
+./cloud_sql_proxy -dir=/cloudsql &
+
+sudo mkdir /cloudsql; sudo chmod 777 /cloudsql
+# run this
+# ./cloud_sql_proxy -dir=/cloudsql -instances=windy-watch-186102:us-central1:cora-sql -credential_file=creds.json &
