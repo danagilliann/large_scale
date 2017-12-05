@@ -33,7 +33,7 @@ def register(request):
       return redirect('/micro/user/' + str(_user.id))
   else:
     form = MyUserCreationForm
-  return render(request, 'micro/register.html', { 'form': form })
+  return render(request, 'micro/register.html', { 'form' : form })
 
 def universities(request):
   # get all universities from DB (names and id)
