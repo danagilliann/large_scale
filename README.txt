@@ -32,3 +32,8 @@ Steps to restart DB:
 2) in /web/scalica, run rm -rf /micro/migrations/*
 3) drop scalica database in mysql
 4) redo all set-up steps in the github README starting from ./install_db.sh
+
+Connecting the Compute Engine instance to Cloud SQL instance:
+- https://cloud.google.com/sql/docs/mysql/connect-compute-engine
+- use UNIX sockets instructions, not TCP socket instructions
+- `service apache2 reload`
