@@ -2,12 +2,12 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3><a href="/micro/university/{{ question.university_id }}/">🢠</a> <strong>{{ university.name }}</strong></h3>
+  <h3><a href="/micro/university/{{ question.university_id }}/">🢠</a> <strong>{{ question.university }}</strong></h3>
   
   <br />
   <div class="card">
    <div class="card-header">
-      <strong>Question from <a href="/micro/user/{{ question_user.id }}/">{{ question_user }}</a></strong>
+      <strong>Question from <a href="/micro/user/{{ question.user_id }}/">{{ question.user }}</a></strong>
     </div>
     <div class="card-block">
       <h4 class="card-title">{{ question.text }}</h4>
