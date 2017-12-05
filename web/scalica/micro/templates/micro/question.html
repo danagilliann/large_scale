@@ -27,6 +27,7 @@
 
  <br />
 
+  {% if not duplicate %}
    <div class="card">
      <div class="card-header">
         <strong>Answer this question</strong>
@@ -45,7 +46,7 @@
         {% endif %}
       </div>
     </div>
-
+  {% endif %}
   <br>
 
   {% if answer_list %}
