@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container" style="padding: 30px;">
-  <h3><strong>Profile for {{ profile_user }}</strong></h3>
+  <h3><strong>Profile for {{ profile.user }}</strong></h3>
   <hr/>
   <div class="form-group row">
     <label for="example-text-input" class="col-2 col-form-label"><strong>First Name</strong></label>
@@ -28,7 +28,7 @@
   <div class="form-group row">
     <label for="example-text-input" class="col-2 col-form-label"><strong>University</strong></label>
     <div class="col-10">
-      <input disabled class="form-control" type="text" value="{{ university.name }}">
+      <input disabled class="form-control" type="text" value="{{ profile.university.name }}">
     </div>
   </div>
 
@@ -52,7 +52,7 @@
   {% if profile_form %}
     <hr />
     <h5><strong>Edit your profile:</strong></h5>
-    <form action="/micro/user/{{ profile_user.id }}/" method="post">
+    <form action="/micro/user/{{ profile.user_id }}/" method="post">
     <table class="registerTable">
       {% csrf_token %}
       {{ profile_form.as_table }}

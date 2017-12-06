@@ -70,29 +70,24 @@ def university(request, university_id, message=None):
 def question(request, question_id, message=None):
   # get question and university with the specific id
   _question = Question.objects.get(id=question_id)
-  _university = University.objects.get(id=_question.university_id)
-  _user = User.objects.get(id=_question.user_id)
 
   duplicate = _question.duplicate_of
 
   # get all answers from this question
-  answer_list = None
+  answer_list = Answer.objects.filter(question_id=question_id)
   if duplicate:
-    answer_list = Answer.objects.filter(question_id=duplicate.id)
-  else:
-    answer_list = Answer.objects.filter(question_id=question_id)
+    answers_of_duplicate = Answer.objects.filter(question_id=duplicate.id)
+    answer_list = answers_of_duplicate | answer_list
 
   # check if user has already followed this question
   not_followed = Following.objects.filter(question_id=question_id).filter(user_id=request.user.id).count() == 0
 
   context = {
     'question' : _question,
-    'university' : _university,
     'answer_list' : answer_list,
     'answer_form' : AnswerForm,
     'not_followed': not_followed,
     'message' : message,
-    'question_user' : _user,
     'duplicate' : duplicate
   }
 
@@ -101,11 +96,9 @@ def question(request, question_id, message=None):
 def answer(request, answer_id):
   # get answer and question with the specified id
   _answer = Answer.objects.get(id=answer_id)
-  _user = User.objects.get(id=_answer.user_id)
 
   context = {
-    'answer' : _answer,
-    'answer_user' : _user
+    'answer' : _answer
   }
 
   return render(request, 'micro/answer.html', context)
@@ -122,17 +115,13 @@ def home(request):
 
 @login_required
 def user(request, user_id):
-  _user = User.objects.get(id=user_id)
-  _profile = Profile.objects.get(user_id=user_id)
-  _university = None
+  profile = Profile.objects.get(user_id=user_id)
   profile_form = None
-  if _profile.university_id:
-    _university = University.objects.get(id=_profile.university_id)
-  if _user == request.user:
+  if profile.user == request.user:
     if request.method == 'POST':
       profile_form = ProfileForm(request.POST, instance=request.user.profile)
-      _profile = profile_form.save(commit=True)
-      _university = _university = University.objects.get(id=_profile.university_id)
+      if (profile_form.is_valid()):
+        profile = profile_form.save(commit=True)
     else:
       profile_form = ProfileForm(instance=request.user.profile)
 
@@ -141,9 +130,7 @@ def user(request, user_id):
   questions_asked = Question.objects.filter(user_id=user_id).order_by('-id')
 
   context = {
-    'profile_user' : _user,
-    'profile' : _profile,
-    'university': _university,
+    'profile' : profile,
     'profile_form' : profile_form,
     'questions_followed': questions_followed,
     'questions_asked': questions_asked
@@ -155,7 +142,8 @@ def user(request, user_id):
 @login_required
 def post_university(request):
   if request.method == 'POST':
-      form = UniversityForm(request.POST)
+    form = UniversityForm(request.POST)
+    if (form.is_valid()):
       form.save(commit=True)
   return universities(request)
 
