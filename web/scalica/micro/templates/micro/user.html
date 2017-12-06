@@ -39,6 +39,9 @@
       <ul class="list-group list-group-flush">
         {% for question in questions_asked %}
         <li class="list-group-item"><a href="/micro/question/{{ question.id }}">{{ question.text }}</a></li>
+          {% if question.duplicate_of %}
+            <a href="/micro/question/{{ duplicate.id }}"><span class="badge badge-danger">Duplicate of #{{ question.duplicate_of.id }}</span></a>
+          {% endif %}
         {% endfor %}
       </ul>
     </div>
