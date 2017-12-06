@@ -25,7 +25,7 @@
 	    	{% for question in question_list %}
 	      <li class="list-group-item">
           <a href="/micro/question/{{ question.id }}">{{ question.text }}</a>&nbsp;&nbsp;
-          {% if not question.duplicate_of %}
+          {% if question.duplicate_of %}
             <a href="/micro/question/{{ duplicate.id }}"><span class="badge badge-danger">Duplicate of #{{ question.duplicate_of.id }}</span></a>
           {% endif %}
         </li>
