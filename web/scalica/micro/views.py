@@ -120,7 +120,8 @@ def user(request, user_id):
   if profile.user == request.user:
     if request.method == 'POST':
       profile_form = ProfileForm(request.POST, instance=request.user.profile)
-      profile = profile_form.save(commit=True)
+      if (profile_form.is_valid()):
+        profile = profile_form.save(commit=True)
     else:
       profile_form = ProfileForm(instance=request.user.profile)
 
@@ -141,7 +142,8 @@ def user(request, user_id):
 @login_required
 def post_university(request):
   if request.method == 'POST':
-      form = UniversityForm(request.POST)
+    form = UniversityForm(request.POST)
+    if (form.is_valid()):
       form.save(commit=True)
   return universities(request)
 
