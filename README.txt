@@ -42,6 +42,21 @@ Connecting the Compute Engine instance to Cloud SQL instance:
 cd var/www/site/scalica
 ls
 ```
+
+Running the Batch Job:
+To run the job, first run have the database accept connections by running the following on the command-line:
+
+```
+./cloud_sql_proxy -instances=windy-watch-186102:us-central1:cora-sql=tcp:3306
+```
+
+Then, run the following Python script in a virtual environment:
+
+```
+python trigger_pipeline.py
+```
+
+
 you should have:
 cloud_sql_proxy (executable)
 creds.json (credentials for cloud sql)

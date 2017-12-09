@@ -2,4 +2,6 @@ venv
 *.pyc
 env/*
 migrations/
-
+.DS_Store
+*.class
+*.csv
