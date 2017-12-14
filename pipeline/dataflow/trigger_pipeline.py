@@ -1,5 +1,5 @@
 import os
-import mysql
+# import mysql
 import mysql.connector
 import csv
 
