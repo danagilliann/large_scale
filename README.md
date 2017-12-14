@@ -1,8 +1,9 @@
-Project config
+Group 8 Project Submission
 ---
-Go to: `http://35.227.70.109/micro/` [ash: to update this]
-Username: `test`
-Password: `test`
+* Go to: `http://35.227.91.18/micro/`
+* username: `test`
+* password: `test`
+* note: the university for `test` is set to NYU, so you can only post questions in the NYU page
 
 To try out the remove-duplicate feature
 ---
