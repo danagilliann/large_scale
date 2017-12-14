@@ -16,7 +16,8 @@ def put_database_input_to_bucket():
 
 
 def get_database_inputs():
-    connection = mysql.connector.connect(user='root', passwd='', host='127.0.0.1', db='scalica')
+    connection = MySQLdb.connect(unix_socket='/cloudsql/windy-watch-186102:us-central1:cora-sql',
+                     db='scalica', user='root', passwd='', charset='utf8')
     cursor = connection.cursor()
     query = "SELECT text,id FROM micro_question;"
 
@@ -35,7 +36,9 @@ def get_database_inputs():
 
 
 def put_duplicate_answers_in_db():
-    connection = mysql.connector.connect(user='root', passwd='', host='127.0.0.1', db='scalica')
+    connection = MySQLdb.connect(unix_socket='/cloudsql/windy-watch-186102:us-central1:cora-sql',
+                     db='scalica', user='root', passwd='', charset='utf8')
+
     cursor = connection.cursor()
     query = 'UPDATE micro_question SET duplicate_of_id = {original_id} WHERE id = {duplicate_id};'
 
