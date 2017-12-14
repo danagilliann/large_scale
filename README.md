@@ -1,3 +1,18 @@
+Project config
+---
+Go to: `http://35.227.70.109/micro/` [ash: to update this]
+Username: `test`
+Password: `test`
+
+To try out the remove-duplicate feature
+---
+* Go to `http://35.227.70.109/micro/university/1/`
+* Create a new question that has already been asked
+* Run the batch job (instructions at the end of the README)
+* Refresh the page
+* You should see that the question you just asked is marked as a duplicate
+
+
 ## Install required packages
 ```
 $ sudo apt-get update
