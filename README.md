@@ -7,7 +7,7 @@ Group 8 Project Submission
 
 To try out the remove-duplicate feature
 ---
-* Go to `http://35.227.70.109/micro/university/1/`
+* Go to `http://104.196.149.173/micro/university/1/`
 * Create a new question that has already been asked
 * Run the batch job (next section)
 * Refresh the page
@@ -17,6 +17,7 @@ To try out the remove-duplicate feature
 To run the job, first run have the database accept connections by running the following on the command-line:
 
 ```
+ssh [username]@104.196.149.173
 cd /var/www/site/depot/dataflow
 sudo python trigger_pipeline.py
 ```
