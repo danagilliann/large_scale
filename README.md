@@ -26,6 +26,8 @@ cd /var/www/site/depot/dataflow
 sudo python trigger_pipeline.py
 ```
 
+Initial Setup
+---
 ## Install required packages
 ```
 $ sudo apt-get update
