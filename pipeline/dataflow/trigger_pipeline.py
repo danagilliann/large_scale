@@ -1,7 +1,6 @@
 import os
-import mysql
-import mysql.connector
 import csv
+import MySQLdb
 
 def run_duplicates_job():
     os.system('mvn compile exec:java   -Dexec.mainClass=com.example.Duplicates')
