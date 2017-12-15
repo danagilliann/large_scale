@@ -7,7 +7,7 @@ Group 8 Project Submission
 
 To try out the remove-duplicate feature
 ---
-* Go to `http://104.196.149.173/micro/university/1/`
+* Go to http://104.196.149.173/micro/university/1/
 * Create a new question that has already been asked
 * Run the batch job (next section)
 * Refresh the page
