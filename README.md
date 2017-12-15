@@ -5,6 +5,12 @@ Group 8 Project Submission
 * password: `test`
 * note: the university for `test` is set to NYU, so you can only post questions in the NYU page
 
+Documents
+---
+* [Project Design](https://docs.google.com/document/d/1evK8H9v9Xi3oi-DZ_j8c4Kp1K-RW8u_dYOcAvAEJPTE/edit)
+
+* [Presentation Slides](https://docs.google.com/presentation/d/1lY1ofil1c_jugo1Aim4T7U9Kru74sdGQZcD5H26XnZU/edit)
+
 To try out the remove-duplicate feature
 ---
 * Go to http://104.196.149.173/micro/university/1/
