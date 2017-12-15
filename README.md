@@ -9,10 +9,17 @@ To try out the remove-duplicate feature
 ---
 * Go to `http://35.227.70.109/micro/university/1/`
 * Create a new question that has already been asked
-* Run the batch job (instructions at the end of the README)
+* Run the batch job (next section)
 * Refresh the page
 * You should see that the question you just asked is marked as a duplicate
 
+## Running the Batch Job
+To run the job, first run have the database accept connections by running the following on the command-line:
+
+```
+cd /var/www/site/depot/dataflow
+sudo python trigger_pipeline.py
+```
 
 ## Install required packages
 ```
@@ -76,17 +83,5 @@ scalica
 utils
 ```
 
-## Running the Batch Job
-To run the job, first run have the database accept connections by running the following on the command-line:
-
-```
-./cloud_sql_proxy -instances=windy-watch-186102:us-central1:cora-sql=tcp:3306
-```
-
-Then, run the following Python script in a **virtual environment**:
-
-```
-python trigger_pipeline.py
-```
 
 
