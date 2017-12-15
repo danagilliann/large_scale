@@ -48,7 +48,7 @@ sudo python trigger_pipeline.py
 
 Initial Setup
 ---
-## Install required packages
+### Install required packages
 ```
 $ sudo apt-get update
 $ sudo apt-get install mysql-server libmysqlclient-dev python-dev python-virtualenv
@@ -56,7 +56,7 @@ $ sudo apt-get install mysql-server libmysqlclient-dev python-dev python-virtual
 $ ./first_install.sh
 ```
 
-## Install the proper databases
+### Install the proper databases
 ```
 $ cd db
 $ ./install_db.sh
@@ -64,7 +64,7 @@ $ ./install_db.sh
 $ cd ..
 ```
 
-## Sync the database
+### Sync the database
 ```
 $ source ./env/bin/activate
 $ cd web/scalica
@@ -72,17 +72,16 @@ $ python manage.py makemigrations micro
 $ python manage.py migrate
 ```
 
-
-## After the first installation, from the project's directory, run the server
+### After the first installation, from the project's directory, run the server
 ```
 $ source ./env/bin/activate
 $ cd web/scalica
 $ python manage.py runserver
 ```
-
+Setup done!
 Access the site at `http://localhost:8000/micro`
 
-## Steps to restart DB
+## Steps to restart DB (for changing models)
 ```
 1) in /web/scalica, run python manage.py flush
 2) in /web/scalica, run rm -rf /micro/migrations/*
