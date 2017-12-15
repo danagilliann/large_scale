@@ -1,6 +1,6 @@
 Group 8 Project Submission
 ---
-* Go to: `http://104.196.149.173/micro/`
+* Go to: http://104.196.149.173/micro/
 * username: `test`
 * password: `test`
 * note: the university for `test` is set to NYU, so you can only post questions in the NYU page
