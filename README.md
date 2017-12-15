@@ -20,8 +20,6 @@ To try out the remove-duplicate feature
 * You should see that the question you just asked is marked as a duplicate
 
 ## Running the Batch Job
-To run the job, first run have the database accept connections by running the following on the command-line:
-
 ```
 ssh [username]@104.196.149.173
 cd /var/www/site/depot/dataflow
