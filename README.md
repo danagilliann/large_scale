@@ -1,15 +1,35 @@
 Group 8 Project Submission
 ---
-* Go to: http://104.196.149.173/micro/
-* username: `test`
-* password: `test`
-* note: the university for `test` is set to NYU, so you can only post questions in the NYU page
+What is it
+---
+We are building a College Advice App where users can ask questions relating to their university, answer any questions they see, or subscribe to a question. Questions can be anything like class and teacher choices, best places to eat around campus, printing locations, etc. Users will see the answers to the questions they subscribed to on their dashboard. We will also run a batch job to prevent duplicate answers.
+
+Technologies used
+---
+* Apache webserver
+
+* Django framework
+
+* Google Dataflow for the batch job
+
+* Google CloudSQL as our MySQL database
+
+* Google Compute Engine as our virtual instance
+
 
 Documents
 ---
 * [Project Design](https://docs.google.com/document/d/1evK8H9v9Xi3oi-DZ_j8c4Kp1K-RW8u_dYOcAvAEJPTE/edit)
 
 * [Presentation Slides](https://docs.google.com/presentation/d/1lY1ofil1c_jugo1Aim4T7U9Kru74sdGQZcD5H26XnZU/edit)
+
+
+Trying it out
+---
+* Go to: http://104.196.149.173/micro/
+* username: `test`
+* password: `test`
+* note: the university for `test` is set to NYU, so you can only post questions in the NYU page
 
 To try out the remove-duplicate feature
 ---
@@ -89,6 +109,3 @@ micro
 scalica
 utils
 ```
-
-
-
