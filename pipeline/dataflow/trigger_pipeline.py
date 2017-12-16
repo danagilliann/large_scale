@@ -1,7 +1,8 @@
 import os
-# import mysql
+import mysql
 import mysql.connector
 import csv
+import codecs
 
 def run_duplicates_job():
     os.system('mvn compile exec:java   -Dexec.mainClass=com.example.Duplicates')
@@ -39,9 +40,11 @@ def put_duplicate_answers_in_db():
     cursor = connection.cursor()
     query = 'UPDATE micro_question SET duplicate_of_id = {original_id} WHERE id = {duplicate_id};'
 
-    with open('duplicates-output/duplicates.csv') as duplicates_csv:
-        reader = csv.reader(duplicates_csv, delimiter=',')
+    with open('duplicates-output/duplicates.csv', 'rU') as duplicates_csv:
+        reader = csv.reader((x.replace('\0', '') for x in duplicates_csv), delimiter=',')
         for row in reader:
+            print row
+
             if len(row) < 2:
                 continue
 

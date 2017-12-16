@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.stream.StreamSupport;
 import java.util.stream.Collectors;
 import java.security.NoSuchAlgorithmException;
+import java.io.UnsupportedEncodingException;
 
 import com.google.cloud.dataflow.sdk.Pipeline;
 import com.google.cloud.dataflow.sdk.io.TextIO;
@@ -62,17 +63,19 @@ public class Duplicates {
          }
 
          String questionString = questionArrayList.toString();
-         byte[] bytesOfQuestion = questionString.getBytes();
 
          try {
+           byte[] bytesOfQuestion = questionString.getBytes("US-ASCII");
            MessageDigest questionMd = MessageDigest.getInstance("MD5");
            byte[] questionHash = questionMd.digest(bytesOfQuestion);
-           String questionFromHashString = new String(questionHash);
+           String questionFromHashString = new String(questionHash, "US-ASCII");
 
            KV<String, String> questionIdPair = KV.of(questionFromHashString, questionIdPairArray[1]);
            c.output(questionIdPair);
          } catch (NoSuchAlgorithmException e) {
            System.err.println("I'm sorry, but MD5 is not a valid message digest algorithm");
+         } catch (UnsupportedEncodingException e) {
+           System.err.println("Cannot convert byte arr");
          }
        }
      }))
